@@ -160,7 +160,7 @@ print('...')
 print('\n')
 
 data_dict = {}
-var_dict = plotFunctions.data_analysis(source_dict, source_names)
+var_dict, data_dict, source_names = plotFunctions.data_analysis(source_dict, source_names)
 #print(data_dict.keys())
 print('\n')
 print("We have now looped over alll events and selected only triggered events")

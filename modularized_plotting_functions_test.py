@@ -327,7 +327,7 @@ def data_analysis(source_dict, source_names):
                 data_dict['{0}'.format(source_names[i])] = var_dict
                 print("#"*28)
                 print('\n')
-        return var_dict
+        return var_dict, data_dict, source_names
 
 
 
