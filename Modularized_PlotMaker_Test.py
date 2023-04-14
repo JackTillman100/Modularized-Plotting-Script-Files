@@ -251,7 +251,6 @@ ang_strings = ['ang', 'theta', 'phi']
 
 #To plot the collected data, we will call functions from a prewritten python file
 
-
 ##################
 #####Plotting#####
 ####################
@@ -316,10 +315,11 @@ for i in range(len(source_names)):
 print("Done!")
 
 print("2D Histogram Comparison Plots!")
-for i in range(1,len(source_names)):
+
+for i in range(1, len(source_names)):
         print("Plotting...")
         plt.figure(i, figsize=(8,6))
-        plotFunctions.diff_hist(scatter_vars[2], scatter_vars[4], data_dict, bin_cos, bindistance, bin_dist, source_names, source_names[0], source_names[i])
+        plotFunctions.diff_hist(scatter_vars[2], scatter_vars[4], source_names[0], source_names[i], source_names, bin_dist, bin_cos, source_names, data_dict, 12)
         plt.savefig('test_plots/2DHistDiff_{2}_{3}_{0}_{1}_.png'.format(scatter_vars[2], 
                                                                         scatter_vars[3], 
                                                                         source_names[0], 
@@ -374,8 +374,8 @@ plt.clf()
 print("Done!")
 
 
-
-for i in range(1,len(source_names)):
+print("More PDFs of histograms!")
+for i in range(len(source_names)):
         print("Plotting...")
         plt.figure(1001, figsize=(8.5,11))
         plt.suptitle('{0} and {1}'.format(source_names[0],source_names[i]), fontsize=16)
@@ -414,7 +414,7 @@ print("Done!")
 #Doing it for all in a for loop
 #scatter_vars = ['distance', 'depth', 'dist_0', 'rec_ang_0']
 print("PDF of scatter plots, 2D Histograms, and comparison 2D Histograms")
-for i in range(1,len(source_names)):
+for i in range(1, len(source_names)):
         print("Plotting...")
         plt.figure(20001, figsize=(8.5,11))
         plt.suptitle('{0} and {1}'.format(source_names[0],source_names[i]), fontsize=16)
@@ -430,7 +430,7 @@ for i in range(1,len(source_names)):
         plotFunctions.multi_hist('dist_0', 'theta_rec_0', data_dict, bin_cos, bindistance, bin_dist, source_names[i], fontsize=8)
 
         plt.subplot(3,1,3)
-        plotFunctions.diff_hist('dist_0', 'theta_rec_0', data_dict, bin_cos, bindistance, bin_dist, source_names, source_names[0], source_names[i], fontsize=8)
+        plotFunctions.diff_hist('dist_0', 'theta_rec_0', source_names[0], source_names[i], source_names, bin_dist, bin_cos, source_names, data_dict, 8)
         plt.savefig('test_plots/MultiHist_{0}_{1}.pdf'.format(source_names[0],source_names[i]), dpi=300)
         plt.clf()
 print("Done!") 

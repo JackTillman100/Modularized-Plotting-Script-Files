@@ -464,7 +464,7 @@ def multi_hist(var1, var2, data_dict, bin_cos, bindistance, bin_dist, source, fo
                           np.cos(data_dict[source]['{0}'.format(var2)]), 
                           bins=(bin_dist,bin_cos), weights=data_dict[source]['weight'])
         hist_dict[source] = hist
-        
+       
         plt.colorbar()#cax=cax)
         plt.title("{0}".format(source), fontsize=fontsize)
         plt.xlabel("{0}".format(var1), fontsize=fontsize)
@@ -478,9 +478,17 @@ def multi_hist(var1, var2, data_dict, bin_cos, bindistance, bin_dist, source, fo
 
 #Difference Histogram Plotting Function (Plots a histogram showing the difference
 # between 2 data sets)
-def diff_hist(var1, var2, data_dict, bin_cos, bindistance, bin_dist, source_names, source1, source2, fontsize=12):
+def diff_hist(var1, var2, source1, source2, source_names, bin_dist, bin_cos, source, data_dict, fontsize):
         #print("Plotting...")
         hist_dict = {}
+
+        for j in range(len(source_names)):
+                hist = []
+                hist = plt.hist2d(data_dict[source[j]]['{0}'.format(var1)], 
+                          np.cos(data_dict[source[j]]['{0}'.format(var2)]), 
+                          bins=(bin_dist,bin_cos), weights=data_dict[source[j]]['weight'])
+                hist_dict[source[j]] = hist
+
 
         if len(source_names) > 1:
                 diff = hist_dict[source2][0] - hist_dict[source1][0]
