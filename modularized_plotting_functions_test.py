@@ -21,7 +21,6 @@ def parsed_data_list(g):
         source_names = list(source_dict.keys())
         for i in range(len(source_names)):
                 source_names[i] = source_dict[source_names[i]][0].split('.')[-4]
-        #print(source_names)
         return source_dict, source_names
 
 #Defining a function for the data analysis & extraction loop:
@@ -55,27 +54,20 @@ def data_analysis(source_dict, source_names):
                 #loop for making dictionary of variables and empty list
                 for x in var:
                         var_dict['{0}'.format(x)] = []
-                        #print('yes')
-                        # print(var_dict)
 
                 SimTree = [] #sets SimTree and makes empty list
                 SimTree = TChain("AraTree2") #Which tree I will be chaining
-                for line in list(source_dict.values())[i]: #for every filename in my list
+                for line in list(source_dict.values())[i]: #for every file name in my list
                         SimTree.AddFile(line)
                 reportPtr = ROOT.Report()#report pointer
-                eventPtr = ROOT.Event()#event pointe
+                eventPtr = ROOT.Event()#event pointer
                 #detectorPtr = ROOT.Detector()
                 #can also add more pointers if needed
-                #print(reportPtr)
-                #print(SimTree)
                 SimTree.SetBranchAddress("report", ROOT.AddressOf(reportPtr))
                 SimTree.SetBranchAddress("event", ROOT.AddressOf(eventPtr))
-                #SimTree.SetBranchAddress("detector", ROOT.AddressOf(detectorPtr))
         
                 #basic info of data
                 totalEvents = SimTree.GetEntries()
-                # key = []
-                # key =  list(source_dict)[i]
         
                 print('\033[1;37m{0}\033[0;0m'.format(source_names[i]))
                 print('Total Events: {0}'.format(totalEvents))
@@ -84,30 +76,18 @@ def data_analysis(source_dict, source_names):
                 var_dict['Total_Events'] = totalEvents
                 var_dict['Total_Weights'] = []
         
-                #print(SimTree.GetEntry(0))
-                #print(SimTree.GetEntry(1))
-                #print(i)
-                #print(type(SimTree))
-                #print(SimTree)
-                #SimTree.Print()
         ##Beaks here##
                 #Now we loop over all the events 
                 for j in range(totalEvents):
-                        #print(j)
                         SimTree.GetEntry(j)
                         var_dict['Total_Weights'].append(eventPtr.Nu_Interaction[0].weight)
 
-                        #var_dict['trigg_weight']
-                        #all_weight = eventPtr.Nu_Interaction[0].weight
                         #Selecting only triggered events and a weight between 0 and 1
                         if (reportPtr.stations[0].Global_Pass > 0) and (eventPtr.Nu_Interaction[0].weight >= 0 and eventPtr.Nu_Interaction[0].weight <= 1):
-                                #print(j)
-                                #print(key)
                                 trigg = j
                                 var_dict['trigg'].append(j)
                         
                                 #If value is seen in both antennas (Top Vpol and Bot Vpol) then we take an average of two
-                                #var_dict['trigg'].append(j)
                                 try:                                                                 
                                         #interaction position in ice
                                         posnu_x = eventPtr.Nu_Interaction[0].posnu.GetX()
@@ -115,7 +95,7 @@ def data_analysis(source_dict, source_names):
                                         posnu_z = eventPtr.Nu_Interaction[0].posnu.GetZ()
                                 
                                         #Getting angle of received signal in antenna
-                                        #Direct solutioins
+                                        #Direct solutions
                                         rec_ang_0 = ((reportPtr.stations[0].strings[1].antennas[0].rec_ang[0] + 
                                                 reportPtr.stations[0].strings[1].antennas[2].rec_ang[0])/2.0)
                                         reflect_ang_0 = ((reportPtr.stations[0].strings[1].antennas[0].reflect_ang[0] +
@@ -144,7 +124,7 @@ def data_analysis(source_dict, source_names):
                                         l_att_1 = reportPtr.stations[0].strings[1].antennas[0].L_att[1]
                                         view_ang_1 = reportPtr.stations[0].strings[1].antennas[0].view_ang[1]
                                         launch_ang_1 = reportPtr.stations[0].strings[1].antennas[0].launch_ang[1]
-                                        #incomeing neutrino info
+                                        #incoming neutrino info
                                         nnu_theta = eventPtr.Nu_Interaction[0].nnu.Theta()
                                         nnu_phi = eventPtr.Nu_Interaction[0].nnu.Phi()
                                         current = eventPtr.Nu_Interaction[0].currentint
@@ -159,7 +139,6 @@ def data_analysis(source_dict, source_names):
                                 
                                         depth = posnu_z - earth_depth
                                         distance =  ((posnu_x - core_x)**2 + (posnu_y - core_y)**2 )**(0.5)
-                                        #detectorPtr.stations[0].strings[1].antennas[0].GetX()
                                         all_var = [trigg, weight, posnu_x, posnu_y, posnu_z,
                                         rec_ang_0, theta_rec_0, reflect_ang_0,
                                         dist_0, arrival_time_0, reflection_0, 
@@ -212,7 +191,7 @@ def data_analysis(source_dict, source_names):
                                                 view_ang_1 = reportPtr.stations[0].strings[1].antennas[0].view_ang[1]
                                                 launch_ang_1 = reportPtr.stations[0].strings[1].antennas[0].launch_ang[1]       
                                         
-                                                #incomeing neutrino info
+                                                #incoming neutrino info
                                                 nnu_theta = eventPtr.Nu_Interaction[0].nnu.Theta()
                                                 nnu_phi = eventPtr.Nu_Interaction[0].nnu.Phi()
                                         
@@ -281,7 +260,7 @@ def data_analysis(source_dict, source_names):
                                                         view_ang_1 = reportPtr.stations[0].strings[1].antennas[2].view_ang[1]
                                                         launch_ang_1 = reportPtr.stations[0].strings[1].antennas[2].launch_ang[1]       
                                                 
-                                                        #incomeing neutrino info
+                                                        #incoming neutrino info
                                                         nnu_theta = eventPtr.Nu_Interaction[0].nnu.Theta()
                                                         nnu_phi = eventPtr.Nu_Interaction[0].nnu.Phi()
                                                 
@@ -319,7 +298,6 @@ def data_analysis(source_dict, source_names):
                                                         print(str(j)+" only has Top Vpol signal")                                                             
                                                 except IndexError:
                                                         print("Event "+str(j)+" has no signal in either Top or Bot Vpol")
-                                                        #exit()
                                                         continue
                                                 
         
@@ -335,11 +313,6 @@ def data_analysis(source_dict, source_names):
 
 #Histogram Plotting Function
 def hist_maker(data_dict, bin_cos, bindistance, hist_var, source, color, fontsize=12, makelabel=False):
-        #print(hist_var)
-        #for i in range(len(source_names)):
-                #print("Plotting...")
-                #print(source_names[i])
-                #print("...")
         try:    
                 if 'ang' in hist_var or 'theta' in hist_var or 'phi' in hist_var:
                         plt.hist(np.cos(data_dict[source]['{0}_0'.format(hist_var)]), 
@@ -365,12 +338,6 @@ def hist_maker(data_dict, bin_cos, bindistance, hist_var, source, color, fontsiz
                 if makelabel is True:
                         legend = plt.legend(custom_lines_color, legend_names, loc='best')
                         plt.gca().add_artist(legend)
-                                #print(legend)
-                        # else:
-                        #         continue
-                        #plt.tight_layout()
-                    
-                        #plt.savefig('test_plots/Hist_{0}_0_{0}_1_.png'.format(hist_var),dpi=300)
   
         except KeyError:
                 
@@ -379,22 +346,19 @@ def hist_maker(data_dict, bin_cos, bindistance, hist_var, source, color, fontsiz
                                  weights=data_dict[source]['weight'], bins=bin_cos, density=False, 
                                  histtype='step', color=color, ls='-', label=str(source))
                         plt.xlabel("Cos({0})".format(hist_var), fontsize=fontsize)
-                        #legend = plt.legend(custom_legend, source_names, loc='upper left')
                         
                 elif 'weight' in hist_var:
                         plt.hist(data_dict[source]['{0}'.format(hist_var)], 
                                  log=True, density=False, 
-                                 histtype='step', color=color, ls='-', label=str(source))#, bins =40)
+                                 histtype='step', color=color, ls='-', label=str(source))
                         plt.xlabel("{0}".format(hist_var), fontsize=fontsize)
-                        #legend = plt.legend(custom_legend, source_names, loc='upper center')
                         
                 elif 'ShowerEnergy' in hist_var:
                         plt.hist(data_dict[source]['{0}'.format(hist_var)],
                                  density=False, weights=data_dict[source]['weight'],
                                  histtype='step', log=True, 
-                                 color=color, ls='-', label=str(source))#, bins= )
+                                 color=color, ls='-', label=str(source))
                         plt.xlabel("{0}".format(hist_var), fontsize=fontsize)
-                        #legend = plt.legend(custom_legend, source_names, loc='upper left')
                         
                 elif 'depth' in hist_var or 'distance' in hist_var:
                         plt.hist(data_dict[source]['{0}'.format(hist_var)],
@@ -402,35 +366,23 @@ def hist_maker(data_dict, bin_cos, bindistance, hist_var, source, color, fontsiz
                                  histtype='step', 
                                  color=color, ls='-', label=str(source), bins= 40)
                         plt.xlabel("{0}".format(hist_var), fontsize=fontsize)
-                        #legend = plt.legend(custom_legend, source_names, loc='upper left')
                         
                 else:
                         plt.hist(data_dict[source]['{0}'.format(hist_var)], 
                                  weights=data_dict[source]['weight'],density=False, 
-                                 histtype='step', color=color, ls='-', label=str(source))#, bins= )
+                                 histtype='step', color=color, ls='-', label=str(source))
                         plt.xlabel("{0}".format(hist_var), fontsize=fontsize)
-                        #legend = plt.legend(custom_legend, source_names, loc='best')
                         
                 plt.ylabel("Events", fontsize=fontsize)
                 plt.grid(linestyle='--')
                 plt.tight_layout()
-                #print(legend)
                 if makelabel is True:
                         legend = plt.legend(custom_lines_color, legend_names, loc='best')
                         plt.gca().add_artist(legend)
                 
-                # if makelabel is True:
-                #         plt.gca().add_artist(legend)
-                # else:
-                #         continue
-                # #plt.tight_layout() 
-                # print(makelabel)
-                
-                #plt.savefig('test_plots/Hist_{0}.png'.format(hist_var),dpi=300)
  
 #Scatterplot Plotting Function
 def scatter_maker(var1, var2, data_dict, bin_cos, bindistance, source, color, fontsize=12):
-        #print("Plotting...")
         if 'ang' in var2 or 'theta' in var2 or 'phi' in var2:
                 plt.scatter(data_dict[source]['{0}'.format(var1)],
                             np.cos(data_dict[source]['{0}'.format(var2)]), 
@@ -449,15 +401,11 @@ def scatter_maker(var1, var2, data_dict, bin_cos, bindistance, source, color, fo
                 plt.ylabel("{0}".format(var2), fontsize=fontsize)
         
         plt.title("{0}".format(source), fontsize=fontsize)
-        #plt.legend()
         plt.grid(linestyle='--')
         plt.tight_layout()
-        # plt.savefig('test_plots/Scatter_{2}_{0}_{1}_.png'.format(var1, var2, source), dpi=300)
-        # plt.clf()
 
 #Multi-Histogram Plotting Function
 def multi_hist(var1, var2, data_dict, bin_cos, bindistance, bin_dist, source, fontsize=12):
-        #print("Plotting...")
         hist_dict = {}
         hist = []
         hist = plt.hist2d(data_dict[source]['{0}'.format(var1)], 
@@ -465,21 +413,15 @@ def multi_hist(var1, var2, data_dict, bin_cos, bindistance, bin_dist, source, fo
                           bins=(bin_dist,bin_cos), weights=data_dict[source]['weight'])
         hist_dict[source] = hist
        
-        plt.colorbar()#cax=cax)
+        plt.colorbar()
         plt.title("{0}".format(source), fontsize=fontsize)
         plt.xlabel("{0}".format(var1), fontsize=fontsize)
         plt.ylabel("{0}".format(var2), fontsize=fontsize)
-        #plt.gca().set_aspect("equal")        
-        #plt.legend()
-        #plt.grid(linestyle='--')
         plt.tight_layout()
-        #plt.savefig('test_plots/2DHist_{2}_{0}_{1}_.png'.format(var1, var2, source), dpi=300)
-        #plt.clf()
 
 #Difference Histogram Plotting Function (Plots a histogram showing the difference
 # between 2 data sets)
 def diff_hist(var1, var2, source1, source2, source_names, bin_dist, bin_cos, source, data_dict, fontsize):
-        #print("Plotting...")
         hist_dict = {}
 
         for j in range(len(source_names)):
@@ -492,18 +434,11 @@ def diff_hist(var1, var2, source1, source2, source_names, bin_dist, bin_cos, sou
 
         if len(source_names) > 1:
                 diff = hist_dict[source2][0] - hist_dict[source1][0]
-                #plt.colormesh(bin_dist, bin_cos, diff, cmap='bwr')
                 plt.pcolormesh(bin_dist, bin_cos, diff.T, cmap='bwr')
                 plt.colorbar()
                 plt.xlabel("{0}".format(var1), fontsize=fontsize)
                 plt.ylabel("{0}".format(var2), fontsize=fontsize)
                 plt.title("{0} vs {1}".format(source1, source2), fontsize=fontsize)
-                #print(diff)
-
-                #plt.legend()
-                #plt.grid(linestyle='--')
                 plt.tight_layout()
-                #plt.savefig('test_plots/2DHistDiff_{2}_{3}_{0}_{1}_.png'.format(var1, var2, source1, source2), dpi=300)
-                #plt.clf()
         else: 
                 print("We can't make a 2D histogram showing a difference, if we only have one dataset...")
