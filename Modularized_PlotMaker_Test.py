@@ -199,6 +199,7 @@ ang_strings = ['ang', 'theta', 'phi']
 ##################
 
 print("Histograms!")
+print('\n')
 print("All at once!")
 for j in range(len(hist_vars)):
         print("Plotting...")
@@ -209,6 +210,7 @@ for j in range(len(hist_vars)):
         plt.savefig('test_plots/Hist_{0}_All.png'.format(hist_vars[j]),dpi=300)
         plt.clf()
 
+print('\n')
 print("Bicone vs. Rest...")
 for j in range(len(hist_vars)):
         print("Plotting...")
@@ -235,6 +237,7 @@ for i in range(len(source_names)):
                                                                  source_names[i], colors[i]), dpi=300)
         plt.clf()
 print("Done!")
+print('\n')
  
 print("2D Histogram Plots!")
 for i in range(len(source_names)):
@@ -246,6 +249,7 @@ for i in range(len(source_names)):
                                                                 source_names[i]), dpi=300)
         plt.clf()
 print("Done!")
+print('\n')
 
 print("2D Histogram Comparison Plots!")
 
@@ -259,6 +263,7 @@ for i in range(1, len(source_names)):
                                                                         source_names[i]), dpi=300)
         plt.clf()
 print("Done!")
+print('\n')
 
 hist_vars = ['rec_ang','theta_rec','view_ang','launch_ang','reflect_ang',
              'nnu_theta', 'nnu_phi',
@@ -286,6 +291,7 @@ for i in range(len(source_names)):
 plt.savefig('test_plots/All_Sources_Histograms.pdf', dpi=300)
 plt.clf()
 print("Done!")
+print('\n')
 
 
 print("More PDFs of histograms!")
@@ -322,6 +328,7 @@ for i in range(len(source_names)):
         plt.clf()
 
 print("Done!")
+print('\n')
 
 
 
