@@ -50,7 +50,7 @@ start = timeit.default_timer()
 #######################################################
 print("\n")
 print('\033[1;37m#\033[0;0m'*50)
-print("Now running \033[1;4;5;31mproject_test.py\033[0;0m!")
+print("Now running \033[1;4;5;31mModularized_PlotMaker_Test.py\033[0;0m!")
 print('\033[1;37m#\033[0;0m'*50)
 print('\n')
 ##########################################
@@ -385,12 +385,34 @@ for i in range(len(source_names)):
         # print('Test Effective Volume: \033[1;31m{0}\033[0;0m'.format(IceVolume * 4.0 * np.pi * (
         #         np.sum(data_dict[source_names[i]]['Total_Weights'])/data_dict[source_names[i]]['Total_Events'])))
 
-        print('#'*50)
+        print('#'*28)
         print('\n')
 
-#exit()
-
-
+#Writing the above antenna event and effective volume information to a txt file
+with open('test_plots/All_Event_And_Effective_Volume_Data.txt', 'w') as txtFile:
+        txtFile.write('Event and Effective Volume information for each antenna:')
+        txtFile.write('\n')
+        for i in range(len(source_names)):
+                txtFile.write('\n')
+                txtFile.write('#'*28)
+                txtFile.write('\n')
+                txtFile.write('{0}'.format(source_names[i]))
+                txtFile.write('\n')
+                txtFile.write('#'*28)
+                txtFile.write('\n')
+                txtFile.write('Total Events: {0}'.format(data_dict[source_names[i]]['Total_Events']))
+                txtFile.write('\n')
+                txtFile.write('Triggered: {0}'.format(len(data_dict[source_names[i]]['trigg'])))
+                txtFile.write('\n')
+                txtFile.write('Usable: {0}'.format(len(data_dict[source_names[i]]['weight'])))
+                txtFile.write('\n')
+                txtFile.write('Weighted: {0}'.format(np.sum(data_dict[source_names[i]]['weight'])))
+                txtFile.write('\n')
+                txtFile.write('Effective Volume: {0}'.format(IceVolume * 4.0 * np.pi * (
+                        np.sum(data_dict[source_names[i]]['weight'])/data_dict[source_names[i]]['Total_Events'])))
+                txtFile.write('\n')
+                txtFile.write('#'*28)
+                txtFile.write('\n')
 
 
 stop = timeit.default_timer()

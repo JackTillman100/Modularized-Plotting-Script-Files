@@ -1,3 +1,7 @@
+#Jack Tillman
+#This python script contains the functions used in the "Modularized_PlotMaker_Test.py" file
+
+#Importing the necessary python and ROOT libraries
 import matplotlib.pyplot as plt 
 from matplotlib.lines import Line2D
 import numpy as np
@@ -442,3 +446,5 @@ def diff_hist(var1, var2, source1, source2, source_names, bin_dist, bin_cos, sou
                 plt.tight_layout()
         else: 
                 print("We can't make a 2D histogram showing a difference, if we only have one dataset...")
+
+#Antenna Information Writer (Writes the information about each antenna to a single pdf file)
