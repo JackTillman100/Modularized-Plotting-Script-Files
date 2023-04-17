@@ -17,9 +17,9 @@ def parsed_data_list(g):
         source_dict = g.__dict__
         #Deleting empty arguments from dictionary
         source_dict = {k:v for k, v in source_dict.items() if v != None}
-        print('#'*28)
+        print('#'*50)
         print(source_dict)
-        print('#'*28)
+        print('#'*50)
         print('\n')
 
         source_names = list(source_dict.keys())
@@ -307,7 +307,7 @@ def data_analysis(source_dict, source_names):
         
                 #end of loop                                                    
                 data_dict['{0}'.format(source_names[i])] = var_dict
-                print("#"*28)
+                print("#"*50)
                 print('\n')
         return var_dict, data_dict, source_names
 
