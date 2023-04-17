@@ -131,7 +131,7 @@ core_y = 10000.0
 ###Loop over Events
 ##################################
 
-print('#'*28)
+print('#'*50)
 print("Now lets do the loop")
 print("Please wait patiently...")
 print('...')
@@ -368,16 +368,16 @@ with open('test_plots/All_Event_And_Effective_Volume_Data.txt', 'w') as txtFile:
 print("Done!")
 
 for i in range(len(source_names)):
-        print('#'*37)
+        print('#'*50)
         print('\033[1;37m{0}\033[0;0m'.format(source_names[i]))
-        print('#'*37)
+        print('#'*50)
         print('Total Events: \033[1;31m{0}\033[0;0m'.format(data_dict[source_names[i]]['Total_Events']))
         print('Triggered: \033[1;31m{0}\033[0;0m'.format(len(data_dict[source_names[i]]['trigg'])))
         print('Usable: \033[1;31m{0}\033[0;0m'.format(len(data_dict[source_names[i]]['weight'])))
         print('Weighted: \033[1;31m{0}\033[0;0m'.format(np.sum(data_dict[source_names[i]]['weight'])))
         print('Effective Volume: \033[1;31m{0}\033[0;0m'.format(IceVolume * 4.0 * np.pi * (
                 np.sum(data_dict[source_names[i]]['weight'])/data_dict[source_names[i]]['Total_Events'])))
-        print('#'*37)
+        print('#'*50)
         print('\n')
 
 stop = timeit.default_timer()
