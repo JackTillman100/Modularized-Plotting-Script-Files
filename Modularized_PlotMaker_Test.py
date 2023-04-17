@@ -198,6 +198,7 @@ ang_strings = ['ang', 'theta', 'phi']
 #####Plotting#####
 ##################
 
+print('\n')
 print("Histograms!")
 print('\n')
 print("All at once!")
@@ -270,7 +271,7 @@ hist_vars = ['rec_ang','theta_rec','view_ang','launch_ang','reflect_ang',
              'dist', 'ShowerEnergy', 'depth', 'distance', 'flavor', 'elast', 'weight']
 
 
-print("PDF of Histograms")
+print("PDF of Histograms!")
 #making pdfs of all histogram
 plt.figure(1001, figsize=(8.5,11))
 plt.suptitle('All sources', fontsize=16)
@@ -294,7 +295,7 @@ print("Done!")
 print('\n')
 
 
-print("More PDFs of histograms!")
+print("More PDFs of Histograms!")
 for i in range(len(source_names)):
         print("Plotting...")
         plt.figure(1001, figsize=(8.5,11))
@@ -333,7 +334,7 @@ print('\n')
 
 
 #Doing it for all in a for loop
-print("PDF of scatter plots, 2D Histograms, and comparison 2D Histograms")
+print("PDF of Scatter Plots, 2D Histograms, and Comparison 2D Histograms!")
 for i in range(1, len(source_names)):
         print("Plotting...")
         plt.figure(20001, figsize=(8.5,11))
@@ -359,7 +360,7 @@ print('\n')
 IceVolume = 8.4823 * 10
 
 #Writing antenna event and effective volume information to a txt file
-print("Writing event and effective volume data to txt file")
+print("Writing Event and Effective Volume Data to a TXT File!")
 with open('test_plots/All_Event_And_Effective_Volume_Data.txt', 'w') as txtFile:
         txtFile.write('Event and Effective Volume information for each antenna:')
         txtFile.write('\n')
