@@ -347,79 +347,39 @@ for i in range(1, len(source_names)):
         plt.savefig('test_plots/MultiHist_{0}_{1}.pdf'.format(source_names[0],source_names[i]), dpi=300)
         plt.clf()
 print("Done!") 
+print('\n')
 
-# IceVolume = (4.0/3.0)*np.pi*(3000**3)*(10**-9)
-# IceVolume = 8.4823 * np.power(10,10)#e+10
+IceVolume = 8.4823 * 10
 
-#######################################
-###General Info
-#######################################
-# for i in range(len(source_names)):
-#         print('#'*28)
-#         print('\033[1;37m{0}\033[0;0m'.format(source_names[i]))
-#         print('#'*28)
-#         print('\033[4;37mEvents\033[0;0m')
-#         print('Triggered: \033[1;31m{0}\033[0;0m'.format(len(data_dict[source_names[i]]['trigg'])))
-#         print('Usable: \033[1;31m{0}\033[0;0m'.format(len(data_dict[source_names[i]]['weight'])))
-#         print('Weighted: \033[1;31m{0}\033[0;0m'.format(np.sum(data_dict[source_names[i]]['weight'])))
-#         print('Effective Volume: \033[1;31m{0}\033[0;0m'.format(IceVolume * 4.0 * np.pi * (
-#                                              np.sum(data_dict[source_names[i]]['weight'])/totalEvents)))
-#         print(IceVolume)
-#         #print(source_dict.items())
-#         print(totalEvents)
-#         print('#'*50)
-#         print('\n')
+#Writing antenna event and effective volume information to a txt file
+print("Writing event and effective volume data to txt file")
+with open('test_plots/All_Event_And_Effective_Volume_Data.txt', 'w') as txtFile:
+        txtFile.write('Event and Effective Volume information for each antenna:')
+        txtFile.write('\n')
+        for i in range(len(source_names)):
+                plotFunctions.antenna_data_txt_writer(txtFile, data_dict, source_names, i, IceVolume)
+print("Done!")
 
-IceVolume = 8.4823 * 10#np.power(10,10)#e+10
 for i in range(len(source_names)):
-        print('#'*28)
+        print('#'*37)
         print('\033[1;37m{0}\033[0;0m'.format(source_names[i]))
-        print('#'*28)
-        # print('\033[4;37mEvents\033[0;0m')
+        print('#'*37)
         print('Total Events: \033[1;31m{0}\033[0;0m'.format(data_dict[source_names[i]]['Total_Events']))
         print('Triggered: \033[1;31m{0}\033[0;0m'.format(len(data_dict[source_names[i]]['trigg'])))
         print('Usable: \033[1;31m{0}\033[0;0m'.format(len(data_dict[source_names[i]]['weight'])))
         print('Weighted: \033[1;31m{0}\033[0;0m'.format(np.sum(data_dict[source_names[i]]['weight'])))
         print('Effective Volume: \033[1;31m{0}\033[0;0m'.format(IceVolume * 4.0 * np.pi * (
                 np.sum(data_dict[source_names[i]]['weight'])/data_dict[source_names[i]]['Total_Events'])))
-        # print('Test Effective Volume: \033[1;31m{0}\033[0;0m'.format(IceVolume * 4.0 * np.pi * (
-        #         np.sum(data_dict[source_names[i]]['Total_Weights'])/data_dict[source_names[i]]['Total_Events'])))
-
-        print('#'*28)
+        print('#'*37)
         print('\n')
-
-#Writing the above antenna event and effective volume information to a txt file
-with open('test_plots/All_Event_And_Effective_Volume_Data.txt', 'w') as txtFile:
-        txtFile.write('Event and Effective Volume information for each antenna:')
-        txtFile.write('\n')
-        for i in range(len(source_names)):
-                txtFile.write('\n')
-                txtFile.write('#'*28)
-                txtFile.write('\n')
-                txtFile.write('{0}'.format(source_names[i]))
-                txtFile.write('\n')
-                txtFile.write('#'*28)
-                txtFile.write('\n')
-                txtFile.write('Total Events: {0}'.format(data_dict[source_names[i]]['Total_Events']))
-                txtFile.write('\n')
-                txtFile.write('Triggered: {0}'.format(len(data_dict[source_names[i]]['trigg'])))
-                txtFile.write('\n')
-                txtFile.write('Usable: {0}'.format(len(data_dict[source_names[i]]['weight'])))
-                txtFile.write('\n')
-                txtFile.write('Weighted: {0}'.format(np.sum(data_dict[source_names[i]]['weight'])))
-                txtFile.write('\n')
-                txtFile.write('Effective Volume: {0}'.format(IceVolume * 4.0 * np.pi * (
-                        np.sum(data_dict[source_names[i]]['weight'])/data_dict[source_names[i]]['Total_Events'])))
-                txtFile.write('\n')
-                txtFile.write('#'*28)
-                txtFile.write('\n')
-
 
 stop = timeit.default_timer()
 print('Time: \033[1;31m{0}\033[0;0m'.format(stop - start))
+print('\n')
 exit()
+
 '''
 I think this is the equation AraSim uses:
 Veff_test = IceVolume * 4. * PI * Total_Weight / (double)(settings1->NNU);
 The IceVolume would be 4/3pi*R^3, and I think R is 3000 m, and then NNU for each root file should be 30000 (so 3*10^6 for each individual)
-v'''
+'''

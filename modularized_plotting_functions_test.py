@@ -447,4 +447,25 @@ def diff_hist(var1, var2, source1, source2, source_names, bin_dist, bin_cos, sou
         else: 
                 print("We can't make a 2D histogram showing a difference, if we only have one dataset...")
 
-#Antenna Information Writer (Writes the information about each antenna to a single pdf file)
+#Antenna Information Writer (Writes the information about each antenna to a single txt file)
+def antenna_data_txt_writer(txtFile, data_dict, source_names, i, IceVolume):
+        txtFile.write('\n')
+        txtFile.write('#'*37)
+        txtFile.write('\n')
+        txtFile.write('{0}'.format(source_names[i]))
+        txtFile.write('\n')
+        txtFile.write('#'*37)
+        txtFile.write('\n')
+        txtFile.write('Total Events: {0}'.format(data_dict[source_names[i]]['Total_Events']))
+        txtFile.write('\n')
+        txtFile.write('Triggered: {0}'.format(len(data_dict[source_names[i]]['trigg'])))
+        txtFile.write('\n')
+        txtFile.write('Usable: {0}'.format(len(data_dict[source_names[i]]['weight'])))
+        txtFile.write('\n')
+        txtFile.write('Weighted: {0}'.format(np.sum(data_dict[source_names[i]]['weight'])))
+        txtFile.write('\n')
+        txtFile.write('Effective Volume: {0}'.format(IceVolume * 4.0 * np.pi * (
+                np.sum(data_dict[source_names[i]]['weight'])/data_dict[source_names[i]]['Total_Events'])))
+        txtFile.write('\n')
+        txtFile.write('#'*37)
+        txtFile.write('\n')
