@@ -381,7 +381,6 @@ with open('test_plots/All_Event_And_Effective_Volume_Data_Temp.txt', 'w') as txt
 csvData = pd.read_csv('test_plots/All_Event_And_Effective_Volume_Data_Temp.txt')
 csvData.to_csv('test_plots/All_Event_And_Effective_Volume_Data.csv', index = None)
 os.remove('test_plots/All_Event_And_Effective_Volume_Data_Temp.txt')
-
 print("Done!")
 print('\n')
 
