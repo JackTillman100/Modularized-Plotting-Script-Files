@@ -81,6 +81,8 @@ print('...')
 import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import numpy as np
+import pandas as pd
+import os 
 print('...')
 
 #Plotting functions
@@ -367,6 +369,21 @@ with open('test_plots/All_Event_And_Effective_Volume_Data.txt', 'w') as txtFile:
         for i in range(len(source_names)):
                 plotFunctions.antenna_data_txt_writer(txtFile, data_dict, source_names, i, IceVolume)
 print("Done!")
+print('\n')
+
+#Writing the exact same data to a csv file
+print("Writing Event and Effective Volume Data to a CSV File!")
+with open('test_plots/All_Event_And_Effective_Volume_Data_Temp.txt', 'w') as txtFile:
+        txtFile.write('Antenna, Total Events, Triggered, Usable, Weighted, Effective Volume')
+        txtFile.write('\n')
+        for i in range(len(source_names)):
+                plotFunctions.antenna_data_txt_writer_temp(txtFile, data_dict, source_names, i, IceVolume)
+csvData = pd.read_csv('test_plots/All_Event_And_Effective_Volume_Data_Temp.txt')
+csvData.to_csv('test_plots/All_Event_And_Effective_Volume_Data.csv', index = None)
+os.remove('test_plots/All_Event_And_Effective_Volume_Data_Temp.txt')
+
+print("Done!")
+print('\n')
 
 for i in range(len(source_names)):
         print('#'*50)

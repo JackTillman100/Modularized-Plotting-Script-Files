@@ -469,3 +469,19 @@ def antenna_data_txt_writer(txtFile, data_dict, source_names, i, IceVolume):
         txtFile.write('\n')
         txtFile.write('#'*37)
         txtFile.write('\n')
+
+#Creating a function to write a stripped down text file to convert to a csv file:
+def antenna_data_txt_writer_temp(txtFile, data_dict, source_names, i, IceVolume):
+        txtFile.write('{0}'.format(source_names[i]))
+        txtFile.write(',')
+        txtFile.write(' {0}'.format(data_dict[source_names[i]]['Total_Events']))
+        txtFile.write(',')
+        txtFile.write('{0}'.format(len(data_dict[source_names[i]]['trigg'])))
+        txtFile.write(',')
+        txtFile.write('{0}'.format(len(data_dict[source_names[i]]['weight'])))
+        txtFile.write(',')
+        txtFile.write('{0}'.format(np.sum(data_dict[source_names[i]]['weight'])))
+        txtFile.write(',')
+        txtFile.write('{0}'.format(IceVolume * 4.0 * np.pi * (
+                np.sum(data_dict[source_names[i]]['weight'])/data_dict[source_names[i]]['Total_Events'])))
+        txtFile.write('\n')
