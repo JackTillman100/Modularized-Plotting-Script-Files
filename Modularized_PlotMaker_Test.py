@@ -177,12 +177,12 @@ custom_lines_style = [Line2D([0], [0], color='k', ls='-'),
 custom_lines_color = []
 for i in range(len(source_names)):
         custom_lines_color.append(Line2D([0], [0], color=colors[i], lw=4))
-custom_lines_color.append(Line2D([0], [0], color='k', ls ='-'))
-custom_lines_color.append(Line2D([0], [0], color='k', ls ='--'))
+#custom_lines_color.append(Line2D([0], [0], color='k', ls ='-'))
+#custom_lines_color.append(Line2D([0], [0], color='k', ls ='--'))
 
 legend_names = list(data_dict.keys())
-legend_names.append('Direct')
-legend_names.append('Refracted')
+#legend_names.append('Direct')
+#legend_names.append('Refracted')
 
 custom_legend = []
 for i in range(len(source_names)):
