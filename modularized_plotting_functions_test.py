@@ -322,18 +322,18 @@ def hist_maker(data_dict, bin_cos, bindistance, hist_var, source, color, fontsiz
                         plt.hist(np.cos(data_dict[source]['{0}_0'.format(hist_var)]), 
                                  weights=data_dict[source]['weight'],bins=bin_cos, density=False, 
                                  histtype='step', color=color, ls='-', label=str(source)+' direct')
-                        plt.hist(np.cos(data_dict[source]['{0}_1'.format(hist_var)]), 
-                                 weights=data_dict[source]['weight'], bins=bin_cos, density=False, 
-                                 histtype='step', color=color, ls='--', label=str(source)+' refracted')
+                        #plt.hist(np.cos(data_dict[source]['{0}_1'.format(hist_var)]), 
+                                 #weights=data_dict[source]['weight'], bins=bin_cos, density=False, 
+                                 #histtype='step', color=color, ls='--', label=str(source)+' refracted')
                         plt.xlabel("Cos({0})".format(hist_var), fontsize=fontsize)
                         
                 else:
                         plt.hist(data_dict[source]['{0}_0'.format(hist_var)], 
                                  weights=data_dict[source]['weight'],bins=bindistance, density=False, 
                                  histtype='step', color=color, ls='-', label=str(source)+' direct')
-                        plt.hist(data_dict[source]['{0}_1'.format(hist_var)], 
-                                 weights=data_dict[source]['weight'], bins=bindistance, density=False, 
-                                 histtype='step', color=color, ls='--', label=str(source)+' refracted')
+                        #plt.hist(data_dict[source]['{0}_1'.format(hist_var)], 
+                                 #weights=data_dict[source]['weight'], bins=bindistance, density=False, 
+                                 #histtype='step', color=color, ls='--', label=str(source)+' refracted')
                         plt.xlabel("{0}".format(hist_var), fontsize=fontsize)
                         
                 plt.ylabel("Events", fontsize=fontsize)
