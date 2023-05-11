@@ -228,7 +228,8 @@ for j in range(len(hist_vars)):
                 plt.title("{0}".format(data_dict[source_names[i]]['Total_Events']))
                 plt.savefig('test_plots/Hist_{0}_{1}_{2}.png'.format(hist_vars[j],source_names[0],source_names[i]),dpi=300)
                 plt.clf()
-
+print('Done!')
+print('\n')
 
 print("Scatter Plots!")
 
@@ -249,6 +250,7 @@ print('\n')
 print("2D Histogram Plots!")
 for i in range(len(source_names)):
         print("Plotting...")
+        makelabel = 0
         plt.figure(i, figsize=(8,6))
         plotFunctions.multi_hist(scatter_vars[2], scatter_vars[4], data_dict, bin_cos, bindistance, bin_dist, source_names[i], fontsize, makelabel, custom_lines_color, legend_names)
         plt.savefig('test_plots/2DHist_{2}_{0}_{1}_.png'.format(scatter_vars[2], 
@@ -262,6 +264,7 @@ print("2D Histogram Comparison Plots!")
 
 for i in range(1, len(source_names)):
         print("Plotting...")
+        makelabel = 0
         plt.figure(i, figsize=(8,6))
         plotFunctions.diff_hist(scatter_vars[2], scatter_vars[4], source_names[0], source_names[i], source_names, bin_dist, bin_cos, source_names, data_dict, 12, makelabel, custom_lines_color, legend_names)
         plt.savefig('test_plots/2DHistDiff_{2}_{3}_{0}_{1}_.png'.format(scatter_vars[2], 
@@ -305,7 +308,8 @@ print("More PDFs of Histograms!")
 for i in range(len(source_names)):
         print("Plotting...")
         plt.figure(1001, figsize=(8.5,11))
-        plt.suptitle('{0} and {1}'.format(source_names[0],source_names[i]), 16)
+        supTitle = '{0} and {1}'.format(source_names[0],source_names[i])
+        plt.suptitle(supTitle, fontsize = 16)
 
         plt.subplot(3, 2, 1)
         plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'nnu_theta', source_names[0], colors[0], 8, makelabel, custom_lines_color, legend_names)
@@ -344,7 +348,8 @@ print("PDF of Scatter Plots, 2D Histograms, and Comparison 2D Histograms!")
 for i in range(1, len(source_names)):
         print("Plotting...")
         plt.figure(20001, figsize=(8.5,11))
-        plt.suptitle('{0} and {1}'.format(source_names[0], source_names[i]), fontsize = 16)
+        supTitle = '{0} and {1}'.format(source_names[0], source_names[i])
+        plt.suptitle(supTitle, fontsize = 16)
 
         plt.subplot(3,2,1)
         plotFunctions.scatter_maker('dist_0', 'theta_rec_0', data_dict, bin_cos, bindistance, source_names[0], colors[0], 8, makelabel, custom_lines_color, legend_names)
