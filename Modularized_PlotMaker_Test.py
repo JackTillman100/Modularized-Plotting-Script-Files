@@ -165,6 +165,7 @@ bin_dist = np.linspace(0,4000, 41)
 binsize = np.linspace(-1.0, 1.0, 41)
 bindepth = 20
 bindistance = np.linspace(0,4000, 41)
+fontsize = 12
 
 ##Setting up legends 
 colors = ['r','b','g','c','m','y']
@@ -187,6 +188,9 @@ custom_legend = []
 for i in range(len(source_names)):
         custom_legend.append(Line2D([0], [0], color=colors[i], lw=4))
 
+#If makelabel = 1 a legend is generated, if it is 0, a legend is not
+makelabel = 1
+
 #Variable arrays for plotting
 hist_vars = ['rec_ang','theta_rec','view_ang','launch_ang','reflect_ang',
              'nnu_theta', 'nnu_phi',
@@ -208,7 +212,7 @@ for j in range(len(hist_vars)):
         print("Plotting...")
         plt.figure(j, figsize=(8,6))
         for i in range(len(source_names)):
-                plotFunctions.hist_maker(data_dict, bin_cos, bindistance, hist_vars[j], source_names[i], colors[i])#, makelabel=True)
+                plotFunctions.hist_maker(data_dict, bin_cos, bindistance, hist_vars[j], source_names[i], colors[i], fontsize, makelabel, custom_lines_color, legend_names)
                 plt.title("{0}".format(data_dict[source_names[i]]['Total_Events']))
         plt.savefig('test_plots/Hist_{0}_All.png'.format(hist_vars[j]),dpi=300)
         plt.clf()
@@ -219,8 +223,8 @@ for j in range(len(hist_vars)):
         print("Plotting...")
         plt.figure(j, figsize=(8,6))
         for i in range(1, len(source_names)):
-                plotFunctions.hist_maker(data_dict, bin_cos, bindistance, hist_vars[j], source_names[0], colors[0])#, makelabel=True)
-                plotFunctions.hist_maker(data_dict, bin_cos, bindistance, hist_vars[j], source_names[i], colors[i])#, makelabel=True)
+                plotFunctions.hist_maker(data_dict, bin_cos, bindistance, hist_vars[j], source_names[0], colors[0], fontsize, makelabel, custom_lines_color, legend_names)
+                plotFunctions.hist_maker(data_dict, bin_cos, bindistance, hist_vars[j], source_names[i], colors[i], fontsize, makelabel, custom_lines_color, legend_names)
                 plt.title("{0}".format(data_dict[source_names[i]]['Total_Events']))
                 plt.savefig('test_plots/Hist_{0}_{1}_{2}.png'.format(hist_vars[j],source_names[0],source_names[i]),dpi=300)
                 plt.clf()
@@ -233,7 +237,7 @@ scatter_vars = ['distance', 'depth', 'dist_0', 'rec_ang_0', 'theta_rec_0']
 for i in range(len(source_names)):
         print("Plotting...")
         plt.figure(i, figsize=(8,6))
-        plotFunctions.scatter_maker(scatter_vars[0], scatter_vars[1], data_dict, bin_cos, bindistance, source_names[i], colors[i])
+        plotFunctions.scatter_maker(scatter_vars[0], scatter_vars[1], data_dict, bin_cos, bindistance, source_names[i], colors[i], fontsize, makelabel, custom_lines_color, legend_names)
         plt.title("{0}".format(data_dict[source_names[i]]['Total_Events']))
         plt.savefig('test_plots/Scatter_{2}_{0}_{1}_.png'.format(scatter_vars[0], 
                                                                  scatter_vars[1], 
@@ -246,7 +250,7 @@ print("2D Histogram Plots!")
 for i in range(len(source_names)):
         print("Plotting...")
         plt.figure(i, figsize=(8,6))
-        plotFunctions.multi_hist(scatter_vars[2], scatter_vars[4], data_dict, bin_cos, bindistance, bin_dist, source_names[i])
+        plotFunctions.multi_hist(scatter_vars[2], scatter_vars[4], data_dict, bin_cos, bindistance, bin_dist, source_names[i], fontsize, makelabel, custom_lines_color, legend_names)
         plt.savefig('test_plots/2DHist_{2}_{0}_{1}_.png'.format(scatter_vars[2], 
                                                                 scatter_vars[3], 
                                                                 source_names[i]), dpi=300)
@@ -259,7 +263,7 @@ print("2D Histogram Comparison Plots!")
 for i in range(1, len(source_names)):
         print("Plotting...")
         plt.figure(i, figsize=(8,6))
-        plotFunctions.diff_hist(scatter_vars[2], scatter_vars[4], source_names[0], source_names[i], source_names, bin_dist, bin_cos, source_names, data_dict, 12)
+        plotFunctions.diff_hist(scatter_vars[2], scatter_vars[4], source_names[0], source_names[i], source_names, bin_dist, bin_cos, source_names, data_dict, 12, makelabel, custom_lines_color, legend_names)
         plt.savefig('test_plots/2DHistDiff_{2}_{3}_{0}_{1}_.png'.format(scatter_vars[2], 
                                                                         scatter_vars[3], 
                                                                         source_names[0], 
@@ -280,17 +284,17 @@ plt.suptitle('All sources', fontsize=16)
 for i in range(len(source_names)):
         print("Plotting...")
         plt.subplot(3, 2, 1)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'nnu_theta', source_names[i], colors[i], fontsize=8)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'nnu_theta', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
         plt.subplot(3, 2, 2)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'theta_rec', source_names[i], colors[i], fontsize=8)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'theta_rec', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
         plt.subplot(3, 2, 3)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'ShowerEnergy', source_names[i], colors[i], fontsize=8)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'ShowerEnergy', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
         plt.subplot(3, 2, 4)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'weight', source_names[i], colors[i], fontsize=8)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'weight', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
         plt.subplot(3, 2, 5)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'dist', source_names[i], colors[i], fontsize=8)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'dist', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
         plt.subplot(3, 2, 6)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'depth', source_names[i], colors[i], fontsize=8)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'depth', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
 plt.savefig('test_plots/All_Sources_Histograms.pdf', dpi=300)
 plt.clf()
 print("Done!")
@@ -301,31 +305,31 @@ print("More PDFs of Histograms!")
 for i in range(len(source_names)):
         print("Plotting...")
         plt.figure(1001, figsize=(8.5,11))
-        plt.suptitle('{0} and {1}'.format(source_names[0],source_names[i]), fontsize=16)
+        plt.suptitle('{0} and {1}'.format(source_names[0],source_names[i]), 16)
 
         plt.subplot(3, 2, 1)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'nnu_theta', source_names[0], colors[0], fontsize=8)# makelabel=False)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'nnu_theta', source_names[i], colors[i], fontsize=8)# makelabel=False)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'nnu_theta', source_names[0], colors[0], 8, makelabel, custom_lines_color, legend_names)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'nnu_theta', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
 
         plt.subplot(3, 2, 2)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'theta_rec', source_names[0], colors[0], fontsize=8)# makelabel=False)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'theta_rec', source_names[i], colors[i], fontsize=8)# makelabel=False)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'theta_rec', source_names[0], colors[0], 8, makelabel, custom_lines_color, legend_names)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'theta_rec', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
 
         plt.subplot(3, 2, 3)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'ShowerEnergy', source_names[0], colors[0], fontsize=8)# makelabel=False)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'ShowerEnergy', source_names[i], colors[i], fontsize=8)# makelabel=False)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'ShowerEnergy', source_names[0], colors[0], 8, makelabel, custom_lines_color, legend_names)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'ShowerEnergy', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
 
         plt.subplot(3, 2, 4)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'weight', source_names[0], colors[0], fontsize=8)# makelabel=False)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'weight', source_names[i], colors[i], fontsize=8)# makelabel=False)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'weight', source_names[0], colors[0], 8, makelabel, custom_lines_color, legend_names)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'weight', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
 
         plt.subplot(3, 2, 5)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'dist', source_names[0], colors[0], fontsize=8)# makelabel=False)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'dist', source_names[i], colors[i], fontsize=8)# makelabel=False)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'dist', source_names[0], colors[0], 8, makelabel, custom_lines_color, legend_names)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'dist', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
 
         plt.subplot(3, 2, 6)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'depth', source_names[0], colors[0], fontsize=8)# makelabel=False)
-        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'depth', source_names[i], colors[i], fontsize=8)# makelabel=False)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'depth', source_names[0], colors[0], 8, makelabel, custom_lines_color, legend_names)
+        plotFunctions.hist_maker(data_dict, bin_cos, bindistance, 'depth', source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
 
         plt.savefig('test_plots/Histograms_{0}_{1}.pdf'.format(source_names[0],source_names[i], dpi=300))
         plt.clf()
@@ -340,20 +344,20 @@ print("PDF of Scatter Plots, 2D Histograms, and Comparison 2D Histograms!")
 for i in range(1, len(source_names)):
         print("Plotting...")
         plt.figure(20001, figsize=(8.5,11))
-        plt.suptitle('{0} and {1}'.format(source_names[0],source_names[i]), fontsize=16)
+        plt.suptitle('{0} and {1}'.format(source_names[0], source_names[i]), fontsize = 16)
 
         plt.subplot(3,2,1)
-        plotFunctions.scatter_maker('dist_0', 'theta_rec_0', data_dict, bin_cos, bindistance, source_names[0], colors[0], fontsize=8)
+        plotFunctions.scatter_maker('dist_0', 'theta_rec_0', data_dict, bin_cos, bindistance, source_names[0], colors[0], 8, makelabel, custom_lines_color, legend_names)
         plt.subplot(3, 2, 3)
-        plotFunctions.multi_hist('dist_0', 'theta_rec_0', data_dict, bin_cos, bindistance, bin_dist, source_names[0], fontsize=8)
+        plotFunctions.multi_hist('dist_0', 'theta_rec_0', data_dict, bin_cos, bindistance, bin_dist, source_names[0], 8, makelabel, custom_lines_color, legend_names)
         
         plt.subplot(3, 2, 2)
-        plotFunctions.scatter_maker('dist_0', 'theta_rec_0', data_dict, bin_cos, bindistance, source_names[i], colors[i], fontsize=8)
+        plotFunctions.scatter_maker('dist_0', 'theta_rec_0', data_dict, bin_cos, bindistance, source_names[i], colors[i], 8, makelabel, custom_lines_color, legend_names)
         plt.subplot(3,2,4)
-        plotFunctions.multi_hist('dist_0', 'theta_rec_0', data_dict, bin_cos, bindistance, bin_dist, source_names[i], fontsize=8)
+        plotFunctions.multi_hist('dist_0', 'theta_rec_0', data_dict, bin_cos, bindistance, bin_dist, source_names[i], 8, makelabel, custom_lines_color, legend_names)
 
         plt.subplot(3,1,3)
-        plotFunctions.diff_hist('dist_0', 'theta_rec_0', source_names[0], source_names[i], source_names, bin_dist, bin_cos, source_names, data_dict, 8)
+        plotFunctions.diff_hist('dist_0', 'theta_rec_0', source_names[0], source_names[i], source_names, bin_dist, bin_cos, source_names, data_dict, 8, makelabel, custom_lines_color, legend_names)
         plt.savefig('test_plots/MultiHist_{0}_{1}.pdf'.format(source_names[0],source_names[i]), dpi=300)
         plt.clf()
 print("Done!") 

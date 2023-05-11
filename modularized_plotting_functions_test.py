@@ -316,7 +316,7 @@ def data_analysis(source_dict, source_names):
 #Defining the plotting functions used!
 
 #Histogram Plotting Function
-def hist_maker(data_dict, bin_cos, bindistance, hist_var, source, color, fontsize=12, makelabel=True):
+def hist_maker(data_dict, bin_cos, bindistance, hist_var, source, color, fontsize, makelabel, custom_lines_color, legend_names):
         try:    
                 if 'ang' in hist_var or 'theta' in hist_var or 'phi' in hist_var:
                         plt.hist(np.cos(data_dict[source]['{0}_0'.format(hist_var)]), 
@@ -339,7 +339,7 @@ def hist_maker(data_dict, bin_cos, bindistance, hist_var, source, color, fontsiz
                 plt.ylabel("Events", fontsize=fontsize)
                 plt.grid(linestyle='--')
                 plt.tight_layout()
-                if makelabel is True:
+                if makelabel is 1:
                         legend = plt.legend(custom_lines_color, legend_names, loc='best')
                         plt.gca().add_artist(legend)
   
@@ -380,13 +380,13 @@ def hist_maker(data_dict, bin_cos, bindistance, hist_var, source, color, fontsiz
                 plt.ylabel("Events", fontsize=fontsize)
                 plt.grid(linestyle='--')
                 plt.tight_layout()
-                if makelabel is True:
+                if makelabel is 1:
                         legend = plt.legend(custom_lines_color, legend_names, loc='best')
                         plt.gca().add_artist(legend)
                 
  
 #Scatterplot Plotting Function
-def scatter_maker(var1, var2, data_dict, bin_cos, bindistance, source, color, fontsize=12, makelabel = True):
+def scatter_maker(var1, var2, data_dict, bin_cos, bindistance, source, color, fontsize, makelabel, custom_lines_color, legend_names):
         if 'ang' in var2 or 'theta' in var2 or 'phi' in var2:
                 plt.scatter(data_dict[source]['{0}'.format(var1)],
                             np.cos(data_dict[source]['{0}'.format(var2)]), 
@@ -412,7 +412,7 @@ def scatter_maker(var1, var2, data_dict, bin_cos, bindistance, source, color, fo
         plt.tight_layout()
 
 #Multi-Histogram Plotting Function
-def multi_hist(var1, var2, data_dict, bin_cos, bindistance, bin_dist, source, fontsize=12, makelabel = True):
+def multi_hist(var1, var2, data_dict, bin_cos, bindistance, bin_dist, source, fontsize, makelabel, custom_lines_color, legend_names):
         hist_dict = {}
         hist = []
         hist = plt.hist2d(data_dict[source]['{0}'.format(var1)], 
@@ -424,14 +424,14 @@ def multi_hist(var1, var2, data_dict, bin_cos, bindistance, bin_dist, source, fo
         plt.title("{0}".format(source), fontsize=fontsize)
         plt.xlabel("{0}".format(var1), fontsize=fontsize)
         plt.ylabel("{0}".format(var2), fontsize=fontsize)
-        if makelabel is True:
+        if makelabel is 1:
                 legend = plt.legend(custom_lines_color, legend_names, loc='best')
                 plt.gca().add_artist(legend)
         plt.tight_layout()
 
 #Difference Histogram Plotting Function (Plots a histogram showing the difference
 # between 2 data sets)
-def diff_hist(var1, var2, source1, source2, source_names, bin_dist, bin_cos, source, data_dict, fontsize, makelabel = True):
+def diff_hist(var1, var2, source1, source2, source_names, bin_dist, bin_cos, source, data_dict, fontsize, makelabel, custom_lines_color, legend_names):
         hist_dict = {}
 
         for j in range(len(source_names)):
@@ -452,7 +452,7 @@ def diff_hist(var1, var2, source1, source2, source_names, bin_dist, bin_cos, sou
                 plt.tight_layout()
         else: 
                 print("We can't make a 2D histogram showing a difference, if we only have one dataset...")
-        if makelabel is True:
+        if makelabel is 1:
                 legend = plt.legend(custom_lines_color, legend_names, loc='best')
                 plt.gca().add_artist(legend)
 
