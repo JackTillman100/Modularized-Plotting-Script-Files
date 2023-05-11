@@ -204,6 +204,10 @@ ang_strings = ['ang', 'theta', 'phi']
 #####Plotting#####
 ##################
 
+'''
+In the current paper, the direct events from the theta_rec histogram plot are used
+'''
+
 print('\n')
 print("Histograms!")
 print('\n')
