@@ -334,9 +334,9 @@ def hist_maker(data_dict, bin_cos, bindistance, hist_var, source, color, fontsiz
                         #plt.hist(data_dict[source]['{0}_1'.format(hist_var)], 
                                  #weights=data_dict[source]['weight'], bins=bindistance, density=False, 
                                  #histtype='step', color=color, ls='--', label=str(source)+' refracted')
-                        plt.xlabel("{0}".format(hist_var), fontsize=fontsize)
+                        plt.xlabel("Cos({0})".format(hist_var), fontsize=fontsize)
                         
-                plt.ylabel("Events", fontsize=fontsize)
+                plt.ylabel("Triggered Events", fontsize=fontsize)
                 plt.grid(linestyle='--')
                 plt.tight_layout()
                 if makelabel is 1:
@@ -377,7 +377,7 @@ def hist_maker(data_dict, bin_cos, bindistance, hist_var, source, color, fontsiz
                                  histtype='step', color=color, ls='-', label=str(source))
                         plt.xlabel("{0}".format(hist_var), fontsize=fontsize)
                         
-                plt.ylabel("Events", fontsize=fontsize)
+                plt.ylabel("Triggered Events", fontsize=fontsize)
                 plt.grid(linestyle='--')
                 plt.tight_layout()
                 if makelabel is 1:
